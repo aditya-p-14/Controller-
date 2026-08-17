@@ -1,0 +1,8 @@
+# WorkBuddy 工具私有目录（记忆 / 分析报告 / 中间产物）
+.workbuddy/
+
+# 系统 / 编辑器
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/

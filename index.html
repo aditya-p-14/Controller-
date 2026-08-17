@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>惠达 GCS · 实机界面还原 + PRD</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<svg style="display:none" aria-hidden="true">
+ <symbol id="i-drone" viewBox="0 0 24 24"><path d="M8 8h8v8H8zM3 5l5 3M21 5l-5 3M3 19l5-3M21 19l-5-3M2 2h3v3H2zM19 2h3v3h-3zM2 19h3v3H2zM19 19h3v3h-3z"/></symbol>
+ <symbol id="i-back" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+ <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+ <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6zM14 3v4h4M9 11h6M9 15h6"/></symbol>
+ <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.8 1.8 0 0 0 .36 2l.06.06-2.76 2.76-.06-.06a1.8 1.8 0 0 0-2-.36 1.8 1.8 0 0 0-1.1 1.65V21H10v-.08A1.8 1.8 0 0 0 8.9 19.3a1.8 1.8 0 0 0-2 .36l-.06.06-2.76-2.76.06-.06a1.8 1.8 0 0 0 .36-2A1.8 1.8 0 0 0 2.85 14H2v-4h.85A1.8 1.8 0 0 0 4.5 8.9a1.8 1.8 0 0 0-.36-2l-.06-.06 2.76-2.76.06.06a1.8 1.8 0 0 0 2 .36A1.8 1.8 0 0 0 10 2.85V2h4v.85a1.8 1.8 0 0 0 1.1 1.65 1.8 1.8 0 0 0 2-.36l.06-.06 2.76 2.76-.06.06a1.8 1.8 0 0 0-.36 2A1.8 1.8 0 0 0 21.15 10H22v4h-.85A1.8 1.8 0 0 0 19.4 15z"/></symbol>
+ <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M5 9a11 11 0 0 1 14 0M8 12a7 7 0 0 1 8 0M11 15a2 2 0 0 1 2 0"/></symbol>
+ <symbol id="i-battery" viewBox="0 0 24 24"><path d="M3 7h16v10H3zM21 10v4"/></symbol>
+</svg>
+<header class="topbar"><div class="brand"><span class="brand-mark"><svg class="svg-icon"><use href="#i-drone"/></svg></span>惠达 GCS · 实机界面还原</div><div class="top-note">点左侧切屏 · 点原型组件定位右侧 PRD · AC 可勾选</div><div class="top-spacer"></div><select class="screen-select" id="screenSelect" aria-label="选择屏幕"></select></header>
+<button class="fab left" onclick="toggleNav()" aria-label="屏幕导航"><svg class="svg-icon"><use href="#i-menu"/></svg></button><button class="fab right" onclick="togglePrd()" aria-label="PRD"><svg class="svg-icon"><use href="#i-doc"/></svg></button><div class="overlay" id="overlay" onclick="closeDrawers()"></div>
+<div class="app"><aside class="nav-col" id="switcher"></aside><section class="proto-col"><div class="tablet-shell" id="tabletShell"><div class="tablet" id="tablet"><div class="tablet-screen" id="screen"></div></div></div></section><main class="prd-col"><button class="prd-close" onclick="closeDrawers()" aria-label="关闭">×</button><div id="prd"></div></main></div>
+<script src="app.js"></script>
+</body>
+</html>
