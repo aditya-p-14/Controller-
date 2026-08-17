@@ -229,7 +229,10 @@ html,body{height:100%;overflow:hidden}body{font-family:-apple-system,BlinkMacSys
 .account-page .logout-btn{margin-top:69px;color:#cf1322;font-size:20px}
 
 /* ===== 存储管理（06.6 新增） ===== */
-.storage-body{padding:14px 16px 28px;display:flex;flex-direction:column;gap:18px;overflow:auto}
+.storage-body{position:absolute;top:96px;left:0;right:0;bottom:0;padding:14px 16px 28px;display:flex;flex-direction:column;gap:18px;overflow:auto;background:#fbfbfb}
+/* 弹框基础样式（遮罩 + 居中卡片），storage-full-dialog 仅负责内部排版 */
+.settings-modal{position:absolute;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:40}
+.settings-dialog{width:360px;max-width:90%;background:#fff;border-radius:12px;padding:22px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
 .storage-overview{background:#fff;border-radius:10px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .storage-bar{height:10px;border-radius:6px;background:#eee;overflow:hidden;margin-bottom:10px}
 .storage-bar>span{display:block;height:100%;background:linear-gradient(90deg,#2bb673,#f5a623);border-radius:6px}
