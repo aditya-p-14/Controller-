@@ -227,3 +227,36 @@ html,body{height:100%;overflow:hidden}body{font-family:-apple-system,BlinkMacSys
 .account-page .account-row .chev{position:relative;width:14px;height:22px;margin-right:19px;font-size:0;flex:0 0 14px;color:transparent}
 .account-page .account-row .chev::before{content:"";position:absolute;left:0;top:4px;width:11px;height:11px;border-top:3px solid #585858;border-right:3px solid #585858;transform:rotate(45deg)}
 .account-page .logout-btn{margin-top:69px;color:#cf1322;font-size:20px}
+
+/* ===== 存储管理（06.6 新增） ===== */
+.storage-body{padding:14px 16px 28px;display:flex;flex-direction:column;gap:18px;overflow:auto}
+.storage-overview{background:#fff;border-radius:10px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.storage-bar{height:10px;border-radius:6px;background:#eee;overflow:hidden;margin-bottom:10px}
+.storage-bar>span{display:block;height:100%;background:linear-gradient(90deg,#2bb673,#f5a623);border-radius:6px}
+.storage-stat{display:flex;justify-content:space-between;font-size:15px;color:#333}
+.storage-stat .avail{font-weight:600}
+.storage-stat .avail.warn{color:#e34d2b}
+.storage-section{background:#fff;border-radius:10px;padding:12px 16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.storage-sec-head{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:600;margin-bottom:10px}
+.storage-sec-head .size{color:#888;font-weight:400;font-size:14px}
+.storage-sec-head .clean-btn{margin-left:auto;background:#f3f4f6;border:none;border-radius:6px;padding:6px 12px;font-size:13px;cursor:pointer}
+.trace-list{display:flex;flex-direction:column;gap:8px}
+.trace-day{background:#fafafa;border-radius:8px;overflow:hidden}
+.trace-day-head{width:100%;display:flex;align-items:center;gap:10px;padding:11px 12px;border:none;background:transparent;text-align:left}
+.trace-day-head .td-date{font-weight:600;min-width:96px}
+.trace-day-head .td-meta{color:#888;font-size:13px;flex:1}
+.trace-day-head .td-chev{color:#888;font-size:18px}
+.trace-day-actions{display:flex;gap:10px;padding:0 12px 12px}
+.trace-day-actions button{padding:8px 14px;border-radius:6px;border:none;cursor:pointer}
+.td-up{background:#e8f6ee;color:#2bb673}
+.td-up.done{background:#eee;color:#999}
+.td-clean{background:#fdecea;color:#e34d2b}
+.danger{color:#e34d2b}
+.storage-items{display:flex;flex-direction:column;gap:6px}
+.storage-item{display:flex;justify-content:space-between;font-size:14px;color:#444;padding:6px 0;border-bottom:1px solid #f0f0f0}
+.storage-empty{color:#aaa;font-size:14px;padding:8px 0}
+.storage-full-dialog h3{margin:0 0 10px;font-size:18px;color:#e34d2b}
+.storage-full-dialog p{margin:0 0 18px;font-size:15px;color:#444;line-height:1.5}
+.storage-full-dialog .actions{display:flex;gap:12px;justify-content:flex-end}
+.storage-full-dialog .primary{background:#2bb673;color:#fff;border:none;border-radius:6px;padding:9px 18px;font-size:15px;cursor:pointer}
+.storage-full-dialog button:not(.primary){background:#f0f0f0;border:none;border-radius:6px;padding:9px 18px;font-size:15px;cursor:pointer}

@@ -400,7 +400,7 @@ function showSettingsDialog(text){document.querySelector('.tablet-screen').inser
 
 function openOfflineMap(){const type=document.getElementById('mapType').value;if(type==='Mapbox')go('offlineMap');else showSettingsDialog('该功能目前仅支持mapbox地图，请先将地图类型修改为mapbox地图再使用该功能')}
 // ── settingsUI — 设置总览
-function settingsUI(){return `<section class="tablet-screen page">${head('通用设置')}<div class="settings-body"><button class="setting-row clickable" onclick="go('unitSettings')">参数单位 <span class="right chev">›</span></button><div class="setting-row">语言 <span class="right"><select class="lang-select" aria-label="语言"><option>中文(简体)</option></select></span></div><button class="setting-row clickable" onclick="go('voiceSettings')">语音设置 <span class="right chev">›</span></button><div class="setting-row">Android系统位置信息服务 <span class="right"><button class="open-btn" onclick="showSystemToast()">打开</button></span></div><div class="setting-row">地区 <span class="right">CN</span></div><button class="setting-row clickable" onclick="go('policySettings')">政策监管 <span class="right chev">›</span></button><div class="setting-row">地图类型 <span class="right"><select class="lang-select" id="mapType" aria-label="地图类型"><option>天地图</option><option>Mapbox</option></select></span></div><button class="setting-row clickable" onclick="openOfflineMap()">离线地图 <span class="right chev">›</span></button><div class="setting-row">缓存大小 <span class="right"><button class="cache-btn" onclick="showSettingsDialog('确定清除应用缓存？')">清除</button><span class="cache-size">171.20KB</span></span></div><button class="setting-row clickable" onclick="go('systemSettings')">系统设置 <span class="right chev">›</span></button></div><div class="system-toast" id="systemToast"></div></section>`}
+function settingsUI(){return `<section class="tablet-screen page">${head('通用设置')}<div class="settings-body"><button class="setting-row clickable" onclick="go('unitSettings')">参数单位 <span class="right chev">›</span></button><div class="setting-row">语言 <span class="right"><select class="lang-select" aria-label="语言"><option>中文(简体)</option></select></span></div><button class="setting-row clickable" onclick="go('voiceSettings')">语音设置 <span class="right chev">›</span></button><div class="setting-row">Android系统位置信息服务 <span class="right"><button class="open-btn" onclick="showSystemToast()">打开</button></span></div><div class="setting-row">地区 <span class="right">CN</span></div><button class="setting-row clickable" onclick="go('policySettings')">政策监管 <span class="right chev">›</span></button><div class="setting-row">地图类型 <span class="right"><select class="lang-select" id="mapType" aria-label="地图类型"><option>天地图</option><option>Mapbox</option></select></span></div><button class="setting-row clickable" onclick="openOfflineMap()">离线地图 <span class="right chev">›</span></button><div class="setting-row">缓存大小 <span class="right"><button class="cache-btn" onclick="showSettingsDialog('确定清除应用缓存？')">清除</button><span class="cache-size">171.20KB</span></span></div><button class="setting-row clickable" onclick="go('systemSettings')">系统设置 <span class="right chev">›</span></button><button class="setting-row clickable" onclick="go('storage')">存储 <span class="right chev">›</span></button></div><div class="system-toast" id="systemToast"></div></section>`}
 // ── unitSettingsUI — 单位设置
 function unitSettingsUI(){return `<section class="tablet-screen page">${subHead('参数单位','settings')}<div class="settings-body"><div class="setting-row">单位切换 <span class="setting-segments"><button onclick="toggleSegment(this)">公制</button><button class="on" onclick="toggleSegment(this)">英制</button></span></div><div class="setting-row">速度单位 <span class="setting-segments"><button onclick="toggleSegment(this)">英尺/秒</button><button class="on" onclick="toggleSegment(this)">英里/小时</button></span></div><div class="setting-row">温度单位 <span class="setting-segments"><button onclick="toggleSegment(this)">摄氏度</button><button class="on" onclick="toggleSegment(this)">华氏度</button></span></div></div></section>`}
 // ── changeSpeech — 切换语音播报
@@ -1410,3 +1410,128 @@ function fitTablet(){const col=document.querySelector('.proto-col'),shell=docume
 // ── updateClock — 顶部时钟刷新
 function updateClock(){const el=document.getElementById('homeTime');if(!el)return;const d=new Date(),h=String(d.getHours()).padStart(2,'0'),m=String(d.getMinutes()).padStart(2,'0');el.textContent=`${h}:${m}(GMT+08:00)`}
 window.addEventListener('resize',fitTablet);setInterval(updateClock,30000);renderAll();
+
+/* ===========================================
+ * 【🟡 06.6 存储管理 · 新增】
+ * 启动存储检查 + 存储管理页（离线轨迹/日志/缓存清理）
+ * 数据为原型模拟值，不读取真实磁盘；接真实设备时
+ * 可替换为 navigator.storage.estimate() 与各目录扫描结果。
+ * ============================================ */
+const GB = 1024 ** 3;
+const MB = 1024 * 1024;
+let STORAGE_STATE = {
+  total: 32 * GB,
+  used: 28.6 * GB,
+  traceExpanded: null,
+  tracePoints: [
+    { date: '2026-08-16', count: 86400, sizeMB: 337, status: 'pending' },
+    { date: '2026-08-15', count: 86400, sizeMB: 330, status: 'pending' },
+    { date: '2026-08-14', count: 72000, sizeMB: 281, status: 'pending' },
+    { date: '2026-08-13', count: 86400, sizeMB: 341, status: 'pending' },
+    { date: '2026-08-12', count: 50000, sizeMB: 196, status: 'uploaded' },
+    { date: '2026-08-11', count: 40000, sizeMB: 157, status: 'uploaded' },
+    { date: '2026-08-10', count: 30000, sizeMB: 118, status: 'uploaded' }
+  ],
+  logs: [
+    { name: '遥控器日志(16组)', sizeMB: 42 },
+    { name: 'RTK日志', sizeMB: 36 },
+    { name: 'MCU串口日志', sizeMB: 18 },
+    { name: '图传日志', sizeMB: 24 }
+  ],
+  cacheMB: 171.2
+};
+function fmtGB(b){ return (b / GB).toFixed(1) + ' GB'; }
+function fmtMB(mb){ return mb >= 1024 ? (mb / 1024).toFixed(2) + ' GB' : mb.toFixed(1) + ' MB'; }
+function traceTotalMB(){ return STORAGE_STATE.tracePoints.reduce((s, t) => s + t.sizeMB, 0); }
+function logTotalMB(){ return STORAGE_STATE.logs.reduce((s, l) => s + l.sizeMB, 0); }
+// ── storageUI — 存储管理
+function storageUI(){
+  const s = STORAGE_STATE;
+  const pct = Math.min(100, Math.round(s.used / s.total * 100));
+  const availMB = (s.total - s.used) / MB;
+  const lowSpace = availMB / 1024 < 5;
+  const traceRows = s.tracePoints.map(t => `
+    <div class="trace-day">
+      <button class="trace-day-head clickable" onclick="toggleTraceDay('${t.date}')">
+        <span class="td-date">${t.date}</span>
+        <span class="td-meta">${t.count.toLocaleString()} 点 · ${fmtMB(t.sizeMB)} · ${t.status === 'uploaded' ? '已上传' : '待上传'}</span>
+        <span class="td-chev">${s.traceExpanded === t.date ? '▾' : '›'}</span>
+      </button>
+      ${s.traceExpanded === t.date ? `<div class="trace-day-actions">
+        <button class="td-up ${t.status === 'uploaded' ? 'done' : ''}" onclick="uploadTraceDay('${t.date}')">${t.status === 'uploaded' ? '已上传' : '上传'}</button>
+        <button class="td-clean danger" onclick="cleanTraceDay('${t.date}')">清理</button>
+      </div>` : ''}
+    </div>`).join('');
+  return `<section class="tablet-screen page">${head('存储', 'settings')}
+    <div class="storage-body">
+      <div class="storage-overview">
+        <div class="storage-bar"><span style="width:${pct}%"></span></div>
+        <div class="storage-stat">
+          <span>已使用 ${fmtGB(s.used)} / 总容量 ${fmtGB(s.total)}</span>
+          <span class="avail ${lowSpace ? 'warn' : ''}">可用 ${fmtGB(s.total - s.used)}</span>
+        </div>
+      </div>
+      <div class="storage-section">
+        <div class="storage-sec-head">离线轨迹点 <span class="size">${fmtMB(traceTotalMB())}</span></div>
+        <div class="trace-list">${traceRows}</div>
+      </div>
+      <div class="storage-section">
+        <div class="storage-sec-head">日志文件 <span class="size">${fmtMB(logTotalMB())}</span> ${s.logs.length ? `<button class="clean-btn" onclick="cleanLogs()">清理</button>` : ''}</div>
+        <div class="storage-items">${s.logs.map(l => `<div class="storage-item"><span>${l.name}</span><span>${fmtMB(l.sizeMB)}</span></div>`).join('') || '<div class="storage-empty">暂无日志</div>'}</div>
+      </div>
+      <div class="storage-section">
+        <div class="storage-sec-head">缓存文件 <span class="size">${fmtMB(s.cacheMB)}</span> ${s.cacheMB ? `<button class="clean-btn" onclick="cleanCache()">清理</button>` : ''}</div>
+      </div>
+      <div class="system-toast" id="storageToast"></div>
+    </div></section>`;
+}
+function toggleTraceDay(d){ STORAGE_STATE.traceExpanded = STORAGE_STATE.traceExpanded === d ? null : d; renderAll(); }
+function uploadTraceDay(d){ const t = STORAGE_STATE.tracePoints.find(x => x.date === d); if(t) t.status = 'uploaded'; renderAll(); toastStorage('原型不会上传真实点位数据'); }
+function cleanTraceDay(d){ const t = STORAGE_STATE.tracePoints.find(x => x.date === d); if(t){ STORAGE_STATE.used = Math.max(0, STORAGE_STATE.used - t.sizeMB * MB); STORAGE_STATE.tracePoints = STORAGE_STATE.tracePoints.filter(x => x.date !== d); } STORAGE_STATE.traceExpanded = null; renderAll(); toastStorage('已清理离线轨迹 ' + d + '（' + fmtMB(t ? t.sizeMB : 0) + '）'); }
+function cleanLogs(){ const total = logTotalMB(); STORAGE_STATE.used = Math.max(0, STORAGE_STATE.used - total * MB); STORAGE_STATE.logs = []; renderAll(); toastStorage('已清理日志文件 ' + fmtMB(total)); }
+function cleanCache(){ const c = STORAGE_STATE.cacheMB; STORAGE_STATE.used = Math.max(0, STORAGE_STATE.used - c * MB); STORAGE_STATE.cacheMB = 0; renderAll(); toastStorage('已清理缓存 ' + fmtMB(c)); }
+function toastStorage(msg){ const el = document.getElementById('storageToast'); if(!el) return; el.textContent = msg; el.classList.add('show'); clearTimeout(window._stTimer); window._stTimer = setTimeout(() => el.classList.remove('show'), 1600); }
+// ── 启动存储检查弹框
+function showStorageFullDialog(){
+  const el = document.querySelector('.tablet-screen'); if(!el) return;
+  const m = document.createElement('div');
+  m.className = 'settings-modal storage-full-modal';
+  m.innerHTML = `<div class="settings-dialog storage-full-dialog">
+    <h3>遥控器存储空间不足</h3>
+    <p>遥控器存储空间将满，请进入设置-存储进行清理不常用文件。</p>
+    <div class="actions"><button onclick="closeStorageDialog()">取消</button><button class="primary" onclick="go('storage');closeStorageDialog()">文件清理</button></div>
+  </div>`;
+  el.appendChild(m);
+}
+function closeStorageDialog(){ document.querySelectorAll('.storage-full-modal').forEach(x => x.remove()); }
+function checkStorageOnLaunch(){
+  const avail = STORAGE_STATE.total - STORAGE_STATE.used;
+  if(avail < 5 * GB){ setTimeout(showStorageFullDialog, 400); }
+}
+// ── 注册存储屏幕
+Object.assign(SCREENS, {
+  storage: {
+    num: '06.6',
+    title: '存储',
+    source: 'SettingsFragment · 存储管理（原型新增演示）',
+    ui: storageUI,
+    prd: {
+      desc: '统一管理遥控器存储空间，展示总容量、已用与可用空间，并按天管理离线轨迹点，以及清理日志与缓存文件。',
+      value: '在存储将满时及时清理不常用文件，避免作业数据无法继续缓存。',
+      fields: [
+        ['总容量','存储量','系统存储','只读','32.0 GB'],
+        ['已使用','存储量','系统存储','只读','实时'],
+        ['离线轨迹点','按天列表','本地轨迹缓存','可展开','每日约 200-340MB'],
+        ['日志文件','列表','各模块日志目录','可清理','合计约 120MB'],
+        ['缓存文件','存储量','应用缓存','可清理','171.20KB']
+      ],
+      interactions: ['顶部进度条与已用/可用展示空间占用','点击某天离线轨迹展开，显示上传与清理操作','上传仅原型演示，不发送真实数据','清理轨迹/日志/缓存会从占用中扣除对应大小','存储空间不足时启动弹框提示进入本页'],
+      state: ['进入存储','读取空间占用','展开轨迹或清理','反馈结果'],
+      src: '原型新增演示；真实实现参考 MqttDatabase 与各模块日志目录清理。',
+      edge: ['原型数据为模拟值，不读取真实磁盘','清理不删除真实文件','上传不发送真实数据'],
+      ac: ['总览进度条与可用空间清晰','离线轨迹按天展开并可上传/清理','日志与缓存提供清理入口','启动空间不足弹框可进入本页']
+    }
+  }
+});
+// 脚本加载即执行启动检查
+checkStorageOnLaunch();
