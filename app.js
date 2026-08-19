@@ -388,7 +388,7 @@ function toggleSegment(btn){btn.parentElement.querySelectorAll('button').forEach
 // ── showSystemToast — 系统 Toast 提示
 function showSystemToast(text='此入口将进入 Android 系统界面，原型不还原系统页面'){const el=document.getElementById('systemToast');el.textContent=text;el.style.display='block';clearTimeout(window.systemToastTimer);window.systemToastTimer=setTimeout(()=>el.style.display='none',2000)}
 // ── showSettingsDialog — 通用设置弹窗
-function showSettingsDialog(text){document.querySelector('.tablet-screen').insertAdjacentHTML('beforeend',`<div class="settings-modal"><div class="settings-dialog"><p>${text}</p><div class="actions"><button onclick="this.closest('.settings-modal').remove()">取消</button><button onclick="this.closest('.settings-modal').remove()">确定</button></div></div></div>`)}
+function showSettingsDialog(text){document.getElementById('tablet').insertAdjacentHTML('beforeend',`<div class="settings-modal"><div class="settings-dialog"><p>${text}</p><div class="actions"><button onclick="this.closest('.settings-modal').remove()">取消</button><button onclick="this.closest('.settings-modal').remove()">确定</button></div></div></div>`)}
 
 // ── openOfflineMap — 打开离线地图
 
@@ -400,7 +400,7 @@ function showSettingsDialog(text){document.querySelector('.tablet-screen').inser
 
 function openOfflineMap(){const type=document.getElementById('mapType').value;if(type==='Mapbox')go('offlineMap');else showSettingsDialog('该功能目前仅支持mapbox地图，请先将地图类型修改为mapbox地图再使用该功能')}
 // ── settingsUI — 设置总览
-function settingsUI(){return `<section class="tablet-screen page">${head('通用设置')}<div class="settings-body"><button class="setting-row clickable" onclick="go('unitSettings')">参数单位 <span class="right chev">›</span></button><div class="setting-row">语言 <span class="right"><select class="lang-select" aria-label="语言"><option>中文(简体)</option></select></span></div><button class="setting-row clickable" onclick="go('voiceSettings')">语音设置 <span class="right chev">›</span></button><div class="setting-row">Android系统位置信息服务 <span class="right"><button class="open-btn" onclick="showSystemToast()">打开</button></span></div><div class="setting-row">地区 <span class="right">CN</span></div><button class="setting-row clickable" onclick="go('policySettings')">政策监管 <span class="right chev">›</span></button><div class="setting-row">地图类型 <span class="right"><select class="lang-select" id="mapType" aria-label="地图类型"><option>天地图</option><option>Mapbox</option></select></span></div><button class="setting-row clickable" onclick="openOfflineMap()">离线地图 <span class="right chev">›</span></button><div class="setting-row">缓存大小 <span class="right"><button class="cache-btn" onclick="showSettingsDialog('确定清除应用缓存？')">清除</button><span class="cache-size">171.20KB</span></span></div><button class="setting-row clickable" onclick="go('systemSettings')">系统设置 <span class="right chev">›</span></button><button class="setting-row clickable" onclick="go('storage')">存储 <span class="right chev">›</span></button></div><div class="system-toast" id="systemToast"></div></section>`}
+function settingsUI(){return `<section class="tablet-screen page">${head('通用设置')}<div class="settings-body"><button class="setting-row clickable" onclick="go('unitSettings')">参数单位 <span class="right chev">›</span></button><div class="setting-row">语言 <span class="right"><select class="lang-select" aria-label="语言"><option>中文(简体)</option></select></span></div><button class="setting-row clickable" onclick="go('voiceSettings')">语音设置 <span class="right chev">›</span></button><div class="setting-row">Android系统位置信息服务 <span class="right"><button class="open-btn" onclick="showSystemToast()">打开</button></span></div><div class="setting-row">地区 <span class="right">CN</span></div><button class="setting-row clickable" onclick="go('policySettings')">政策监管 <span class="right chev">›</span></button><div class="setting-row">地图类型 <span class="right"><select class="lang-select" id="mapType" aria-label="地图类型"><option>天地图</option><option>Mapbox</option></select></span></div><button class="setting-row clickable" onclick="openOfflineMap()">离线地图 <span class="right chev">›</span></button><div class="setting-row">缓存大小 <span class="right"><button class="cache-btn" onclick="showSettingsDialog('确定清除应用缓存？')">清除</button><span class="cache-size">171.20KB</span></span></div><button class="setting-row clickable" onclick="go('systemSettings')">系统设置 <span class="right chev">›</span></button><button class="setting-row clickable" onclick="go('storage')">存储空间 <span class="right chev">›</span></button></div><div class="system-toast" id="systemToast"></div></section>`}
 // ── unitSettingsUI — 单位设置
 function unitSettingsUI(){return `<section class="tablet-screen page">${subHead('参数单位','settings')}<div class="settings-body"><div class="setting-row">单位切换 <span class="setting-segments"><button onclick="toggleSegment(this)">公制</button><button class="on" onclick="toggleSegment(this)">英制</button></span></div><div class="setting-row">速度单位 <span class="setting-segments"><button onclick="toggleSegment(this)">英尺/秒</button><button class="on" onclick="toggleSegment(this)">英里/小时</button></span></div><div class="setting-row">温度单位 <span class="setting-segments"><button onclick="toggleSegment(this)">摄氏度</button><button class="on" onclick="toggleSegment(this)">华氏度</button></span></div></div></section>`}
 // ── changeSpeech — 切换语音播报
@@ -835,7 +835,7 @@ function joystickChannel(axis,action,label,value){return `<div class="joystick-c
 // ── remoteBody — 遥控器主体
 function remoteBody(rows){return `<div class="real-mode-row">${realRow(rows[0],0)}</div><div class="joystick-grid"><div class="joystick-card clickable" data-field-id="r1" onclick="selectDroneField(1,'prdsec2',this)"><h3>左摇杆</h3>${joystickChannel('joyV','thrust','上升/下降','1500')}${joystickChannel('joyH','yaw','左转/右转','1500')}</div><div class="joystick-card clickable" data-field-id="r2" onclick="selectDroneField(2,'prdsec2',this)"><h3>右摇杆</h3>${joystickChannel('joyV','pitch','向前/向后','1500')}${joystickChannel('joyH','roll','向左/向右','1500')}</div></div>${rows.slice(3).map((r,j)=>realRow(r,j+3)).join('')}`}
 // ── showPointUploadDialog — 点位上传弹窗
-function showPointUploadDialog(){document.querySelector('.tablet-screen').insertAdjacentHTML('beforeend',`<div class="settings-modal"><div class="settings-dialog upload-dialog"><h3>离线上传</h3><p>剩余点数: 0</p><div class="actions"><button onclick="this.closest('.settings-modal').remove()">取消</button><button onclick="this.closest('.settings-dialog').querySelector('p').textContent='原型不会上传真实点位数据'">打包上传</button></div></div></div>`)}
+function showPointUploadDialog(){document.getElementById('tablet').insertAdjacentHTML('beforeend',`<div class="settings-modal"><div class="settings-dialog upload-dialog"><h3>离线上传</h3><p>剩余点数: 0</p><div class="actions"><button onclick="this.closest('.settings-modal').remove()">取消</button><button onclick="this.closest('.settings-dialog').querySelector('p').textContent='原型不会上传真实点位数据'">打包上传</button></div></div></div>`)}
 // ── batteryBody — 电量主体
 function batteryBody(rows){return `<div class="battery-telemetry">${rows.slice(0,6).map((r,i)=>`<button type="button" class="battery-telemetry-item clickable" data-field-id="r${i}" onclick="selectDroneField(${i},'prdsec2',this)"><b>${r[0]}</b><em>${i===3?'<span>----</span><span>----</span>':'<span>-</span>'}</em></button>`).join('')}</div>${rows.slice(6).map((r,j)=>realRow(r,j+6)).join('')}`}
 // ── videoBody — 视频主体
@@ -846,11 +846,11 @@ SCREENS.droneSettings.ui=()=>droneSettingsUI();
 function showCalibrationDialog(kind){
  const isMag=kind==='磁力计';
  const steps=isMag?'请将无人机放在空旷区域，按提示依次水平和垂直旋转机身。':'请将无人机放置在水平、静止且无振动的平台上，校准过程中不要移动机身。';
- document.querySelector('.tablet-screen').insertAdjacentHTML('beforeend',`<div class="settings-modal"><div class="settings-dialog"><h3>${kind}校准</h3><p>${steps}</p><p style="color:#8c9691">当前为交互原型，不向真实无人机下发校准命令。</p><div class="actions"><button onclick="this.closest('.settings-modal').remove()">取消</button><button onclick="this.closest('.settings-modal').querySelector('p').textContent='设备连接校验完成，等待校准数据…'">开始校准</button></div></div></div>`);
+ document.getElementById('tablet').insertAdjacentHTML('beforeend',`<div class="settings-modal"><div class="settings-dialog"><h3>${kind}校准</h3><p>${steps}</p><p style="color:#8c9691">当前为交互原型，不向真实无人机下发校准命令。</p><div class="actions"><button onclick="this.closest('.settings-modal').remove()">取消</button><button onclick="this.closest('.settings-modal').querySelector('p').textContent='设备连接校验完成，等待校准数据…'">开始校准</button></div></div></div>`);
 }
 // ── showRemoteAuthDialog — 遥控器授权弹窗
 function showRemoteAuthDialog(){
- document.querySelector('.tablet-screen').insertAdjacentHTML('beforeend',`<div class="settings-modal"><div class="settings-dialog"><h3>Remote ID认证</h3><p>开启 Remote ID 前需要完成认证。认证码应与当前无人机和认证类型匹配。</p><input class="debug-input" maxlength="23" placeholder="请输入认证码" style="width:100%;box-sizing:border-box"><div class="actions"><button onclick="this.closest('.settings-modal').remove()">取消</button><button onclick="this.closest('.settings-modal').querySelector('p').textContent='无人机未连接，无法完成认证'">认证</button></div></div></div>`);
+ document.getElementById('tablet').insertAdjacentHTML('beforeend',`<div class="settings-modal"><div class="settings-dialog"><h3>Remote ID认证</h3><p>开启 Remote ID 前需要完成认证。认证码应与当前无人机和认证类型匹配。</p><input class="debug-input" maxlength="23" placeholder="请输入认证码" style="width:100%;box-sizing:border-box"><div class="actions"><button onclick="this.closest('.settings-modal').remove()">取消</button><button onclick="this.closest('.settings-modal').querySelector('p').textContent='无人机未连接，无法完成认证'">认证</button></div></div></div>`);
 }
 const advancedPage=(id,title,source,rows,extra={})=>({num:id,title,source,_rows:rows,ui:()=>droneSubUI(title,'airAdvanced',rows),prd:{desc:extra.desc||`${title}为无人机高级设置中的 App 内页面，页面内容可上下滑动查看。`,value:extra.value||'用于飞行器校准、检测和维护，不进入 Android 系统页面。',fields:extra.fields||rows.map(r=>[String(r[0]).replace(/<[^>]+>/g,''),'状态/操作',source,'按设备能力','-']),interactions:extra.interactions||['上下滑动查看全部内容','点击任一行联动右侧字段说明','操作前校验无人机连接与飞行状态','返回高级设置'],state:extra.state||['进入页面','读取设备数据','执行检查或校准','显示结果'],src:source,edge:extra.edge||['无人机未连接时显示 N/A 或连接提示','飞行或电机运行时禁止校准','原型不写入真实飞控参数'],ac:extra.ac||['页面内容可滚动到底','每个控件归属于唯一字段','操作均有可见反馈','可返回高级设置']}});
 // ── advancedRealShell — 高级真实外壳
@@ -1422,15 +1422,20 @@ const MB = 1024 * 1024;
 let STORAGE_STATE = {
   total: 32 * GB,
   used: 28.6 * GB,
-  traceExpanded: null,
+  online: true,                       // 模拟网络状态（后台上传依赖；离线时自动暂停）
+  traceTab: 'local',                  // 离线轨迹点子页当前 tab：local（本地）/ uploading（上传中）
+  traceMonths: { '2026-08': true },   // 本地 tab 月份展开态（默认仅展开最新月份）
+  selected: {},                       // 多选选中态（date -> true），用于批量上传/删除
   tracePoints: [
-    { date: '2026-08-16', count: 86400, sizeMB: 337, status: 'pending' },
-    { date: '2026-08-15', count: 86400, sizeMB: 330, status: 'pending' },
-    { date: '2026-08-14', count: 72000, sizeMB: 281, status: 'pending' },
-    { date: '2026-08-13', count: 86400, sizeMB: 341, status: 'pending' },
-    { date: '2026-08-12', count: 50000, sizeMB: 196, status: 'uploaded' },
-    { date: '2026-08-11', count: 40000, sizeMB: 157, status: 'uploaded' },
-    { date: '2026-08-10', count: 30000, sizeMB: 118, status: 'uploaded' }
+    { date: '2026-08-16', count: 86400, sizeMB: 337, status: 'uploading', uploaded: 43200 },
+    { date: '2026-08-15', count: 86400, sizeMB: 330, status: 'waiting',   uploaded: 0 },
+    { date: '2026-08-14', count: 72000, sizeMB: 281, status: 'paused',    uploaded: 30000 },
+    { date: '2026-08-13', count: 86400, sizeMB: 341, status: 'pending',   uploaded: 0 },
+    { date: '2026-08-12', count: 50000, sizeMB: 196, status: 'completed', uploaded: 50000 },
+    { date: '2026-08-11', count: 40000, sizeMB: 157, status: 'completed', uploaded: 40000 },
+    { date: '2026-08-10', count: 30000, sizeMB: 118, status: 'completed', uploaded: 30000 },
+    { date: '2026-07-29', count: 60000, sizeMB: 230, status: 'pending',   uploaded: 0 },
+    { date: '2026-07-20', count: 45000, sizeMB: 176, status: 'pending',   uploaded: 0 }
   ],
   logs: [
     { name: '遥控器日志(16组)', sizeMB: 42 },
@@ -1444,67 +1449,371 @@ function fmtGB(b){ return (b / GB).toFixed(1) + ' GB'; }
 function fmtMB(mb){ return mb >= 1024 ? (mb / 1024).toFixed(2) + ' GB' : mb.toFixed(1) + ' MB'; }
 function traceTotalMB(){ return STORAGE_STATE.tracePoints.reduce((s, t) => s + t.sizeMB, 0); }
 function logTotalMB(){ return STORAGE_STATE.logs.reduce((s, l) => s + l.sizeMB, 0); }
-// ── storageUI — 存储管理
+// ── 存储页辅助：月份分组 + 上传状态文案
+function dayId(d){ return 'd' + d.replace(/-/g, ''); }
+function groupTraceByMonth(){
+  const map = {};
+  STORAGE_STATE.tracePoints.forEach(t => { const k = t.date.slice(0, 7); (map[k] = map[k] || []).push(t); });
+  return Object.keys(map).sort().reverse().map(m => ({ month: m, days: map[m] }));
+}
+function statusText(t){
+  if(t.status === 'waiting') return '等待中';
+  if(t.status === 'uploading') return '上传中';
+  if(t.status === 'paused') return '已暂停';
+  if(t.status === 'completed') return '已完成';
+  return '待上传';
+}
+function statusClass(t){
+  const allow = ['waiting','uploading','paused','completed'];
+  return 'st-' + (allow.includes(t.status) ? t.status : 'pending');
+}
+function speedText(t){
+  if(t.status === 'uploading') return (t.speedMBps || 0).toFixed(1) + ' MB/s';
+  if(t.status === 'waiting') return '排队中';
+  if(t.status === 'paused') return '已暂停';
+  if(t.status === 'completed') return '已完成';
+  return '';
+}
+// 剩余时间（HH:MM:SS；上传中按当前速度推算；其他状态返回占位）
+function etaText(t){
+  if(t.status !== 'uploading') return '';
+  const sp = t.speedMBps || 0;
+  if(sp <= 0) return '剩余 --:--:--';
+  const remain = (t.sizeMB - (t.uploaded / t.count) * t.sizeMB) / sp;
+  if(!isFinite(remain) || remain <= 0) return '剩余 00:00:00';
+  const h = Math.floor(remain / 3600);
+  const m = Math.floor((remain % 3600) / 60);
+  const s = Math.floor(remain % 60);
+  const pad = n => String(n).padStart(2, '0');
+  return '剩余 ' + pad(h) + ':' + pad(m) + ':' + pad(s);
+}
+// 已传 / 总量（按文件大小）
+function sizeProgressText(t){
+  const up = (t.uploaded / t.count) * t.sizeMB;
+  return fmtMB(up) + '，共 ' + fmtMB(t.sizeMB);
+}
+// 直接更新某天的进度条/徽章/速度（后台定时器每 500ms 调用，避免整页重绘闪烁）
+function updateTraceDom(t){
+  const pct = t.count ? Math.round(t.uploaded / t.count * 100) : 100;
+  const prog = document.getElementById('prog-' + dayId(t.date));
+  if(prog){
+    const fill = prog.querySelector('.trace-prog-fill');
+    if(fill) fill.style.width = pct + '%';
+  }
+  const sp = document.getElementById('speed-' + dayId(t.date));
+  if(sp) sp.textContent = t.status === 'uploading' ? speedText(t) : '';
+  const st = document.getElementById('status-' + dayId(t.date));
+  if(st){ st.textContent = statusText(t); st.className = 'tu-status ' + statusClass(t); }
+  const sz = document.getElementById('size-' + dayId(t.date));
+  if(sz) sz.textContent = sizeProgressText(t);
+  const eta = document.getElementById('eta-' + dayId(t.date));
+  if(eta) eta.textContent = etaText(t);
+}
+// ── 后台上传引擎：全局定时器，离开存储页仍持续上传；按 uploaded 偏移续传（断点续传）
+// 队列并发上限：超过上限的等待中(waiting)轨迹排队，体现“等待中”状态
+let _uploadEngine = null;
+const UPLOAD_MAX_CONCURRENT = 2;
+function startUploadEngine(){
+  if(_uploadEngine) return;
+  _uploadEngine = setInterval(() => {
+    const items = STORAGE_STATE.tracePoints;
+    const before = items.map(t => t.status).join('|');   // 状态快照：仅当状态切换时才整页重绘（刷新按钮组）
+    const active = items.filter(t => t.status === 'uploading').length;
+    let slots = UPLOAD_MAX_CONCURRENT - active;
+    items.forEach(t => {                          // 等待中 → 上传中（受并发上限约束）
+      if(slots <= 0) return;
+      if(t.status === 'waiting'){ t.status = 'uploading'; slots--; }
+    });
+    items.forEach(t => {
+      if(t.status !== 'uploading') return;
+      if(!STORAGE_STATE.online){ t.status = 'paused'; updateTraceDom(t); return; }
+      const rate = Math.max(1, Math.round(t.count / 24));   // 每拍推进的点数（约 12s 传完一天）
+      t.uploaded = Math.min(t.count, t.uploaded + rate);
+      t.speedMBps = (rate / t.count) * t.sizeMB * 2;         // 2 拍/秒 → MB/s
+      if(t.uploaded >= t.count){ t.status = 'completed'; t.speedMBps = 0; }
+      updateTraceDom(t);
+    });
+    const after = items.map(t => t.status).join('|');
+    if(before !== after) renderAll();   // 等待中↔上传中↔已暂停↔已完成 等状态变化时刷新按钮（暂停/继续/取消）
+  }, 500);
+}
+// ── storageUI — 存储空间总览（参考系统存储空间：大标题 + 分段进度条 + 分类列表）
 function storageUI(){
   const s = STORAGE_STATE;
-  const pct = Math.min(100, Math.round(s.used / s.total * 100));
-  const availMB = (s.total - s.used) / MB;
-  const lowSpace = availMB / 1024 < 5;
-  const traceRows = s.tracePoints.map(t => `
-    <div class="trace-day">
-      <button class="trace-day-head clickable" onclick="toggleTraceDay('${t.date}')">
-        <span class="td-date">${t.date}</span>
-        <span class="td-meta">${t.count.toLocaleString()} 点 · ${fmtMB(t.sizeMB)} · ${t.status === 'uploaded' ? '已上传' : '待上传'}</span>
-        <span class="td-chev">${s.traceExpanded === t.date ? '▾' : '›'}</span>
-      </button>
-      ${s.traceExpanded === t.date ? `<div class="trace-day-actions">
-        <button class="td-up ${t.status === 'uploaded' ? 'done' : ''}" onclick="uploadTraceDay('${t.date}')">${t.status === 'uploaded' ? '已上传' : '上传'}</button>
-        <button class="td-clean danger" onclick="cleanTraceDay('${t.date}')">清理</button>
-      </div>` : ''}
-    </div>`).join('');
-  return `<section class="tablet-screen page">${head('存储', 'settings')}
-    <div class="storage-body">
-      <div class="storage-overview">
-        <div class="storage-bar"><span style="width:${pct}%"></span></div>
-        <div class="storage-stat">
-          <span>已使用 ${fmtGB(s.used)} / 总容量 ${fmtGB(s.total)}</span>
-          <span class="avail ${lowSpace ? 'warn' : ''}">可用 ${fmtGB(s.total - s.used)}</span>
+  const cacheGB = s.cacheMB / 1024;
+  const traceGB = traceTotalMB() / 1024;
+  const logGB = logTotalMB() / 1024;
+  const otherGB = Math.max(0, (s.used / GB) - cacheGB - traceGB - logGB);
+  const availGB = (s.total - s.used) / GB;
+  const cats = [
+    { key:'cache', label:'缓存数据', sizeGB:cacheGB, color:'#3366ff', clean:'cache' },
+    { key:'log', label:'日志', sizeGB:logGB, color:'#ff9500', clean:'log' },
+    { key:'trace', label:'离线轨迹点', sizeGB:traceGB, color:'#7b4cff', page:'storageTrace' }
+  ];
+  const segs = [];
+  cats.filter(c => c.sizeGB > 0).forEach(c => {
+    segs.push(`<span style="width:${Math.max(0.3, c.sizeGB / (s.total / GB) * 100)}%;background:${c.color}"></span>`);
+  });
+  if(otherGB > 0.01) segs.push(`<span style="width:${Math.max(0.3, otherGB / (s.total / GB) * 100)}%;background:#bbbbbb"></span>`);
+  if(availGB > 0.01) segs.push(`<span style="width:${Math.max(0.3, availGB / (s.total / GB) * 100)}%;background:#e8e8e8"></span>`);
+  const rows = cats.map(c => {
+    const right = c.clean === 'cache'
+      ? `<span class="storage-size">${fmtGBFromGB(c.sizeGB)}</span><button class="storage-clean-small" onclick="cleanCacheFromSpace()">放心清理</button>`
+      : c.clean === 'log'
+      ? `<span class="storage-size">${fmtGBFromGB(c.sizeGB)}</span><button class="storage-clean-small warn" onclick="confirmCleanLogs()">清理</button>`
+      : `<span class="storage-size">${fmtGBFromGB(c.sizeGB)}</span><span class="storage-chev">›</span>`;
+    const clickable = c.page ? `onclick="enterStorageTrace()"` : '';
+    return `<div class="storage-row ${c.page ? 'clickable' : ''}" ${clickable}>
+      <span class="storage-dot" style="background:${c.color}"></span>
+      <span class="storage-name">${c.label}</span>
+      <span class="storage-right">${right}</span>
+    </div>`;
+  }).join('');
+  return `<section class="tablet-screen page">${head('存储空间', 'settings')}
+    <div class="storage-space-body">
+      <div class="storage-space-card">
+        <div class="storage-space-title">${fmtGB(s.used)} <span class="storage-space-total">| ${fmtGB(s.total)}</span></div>
+        <div class="storage-space-bar">${segs.join('')}</div>
+        <div class="storage-space-sub">已使用 / 总容量 · 可用 ${fmtGB(s.total - s.used)}</div>
+      </div>
+      <div class="storage-space-group">
+        <div class="storage-space-group-title">用户数据</div>
+        <div class="storage-row-list">${rows}</div>
+      </div>
+    </div></section>`;
+}
+function fmtGBFromGB(gb){ return gb >= 1 ? gb.toFixed(2) + ' GB' : (gb * 1024).toFixed(1) + ' MB'; }
+function cleanCacheFromSpace(){ cleanCache(); toastStorage('已清理缓存数据'); }
+function confirmCleanLogs(){
+  const el = document.getElementById('tablet'); if(!el) return;
+  const m = document.createElement('div');
+  m.className = 'confirm-modal storage-confirm-modal';
+  m.innerHTML = `<div class="confirm-dialog">
+    <h3>清理日志文件</h3>
+    <p>将删除遥控器内所有日志</p>
+    <div class="confirm-actions"><button onclick="closeConfirmDialog()">取消</button><button class="confirm-primary" onclick="cleanLogs();closeConfirmDialog()">清理</button></div>
+  </div>`;
+  el.appendChild(m);
+}
+function closeConfirmDialog(){ document.querySelectorAll('.storage-confirm-modal').forEach(x => x.remove()); }
+// ── storageTraceUI — 离线轨迹点管理（本地 / 上传中 两个 Tab）
+function storageTraceUI(){
+  const s = STORAGE_STATE;
+  const tab = s.traceTab;
+  const localList = s.tracePoints.filter(t => t.status === 'pending');
+  const upList = s.tracePoints.filter(t => t.status !== 'pending');
+  const localSel = localList.filter(t => s.selected[t.date]).length;
+  const localAll = localList.length && localList.every(t => s.selected[t.date]);
+  const tabs = `<div class="trace-tabs">
+    <div class="trace-tab ${tab === 'local' ? 'on' : ''}" onclick="toggleTraceTab('local')">本地 <span class="tcount">${localList.length}</span></div>
+    <div class="trace-tab ${tab === 'uploading' ? 'on' : ''}" onclick="toggleTraceTab('uploading')">上传中 <span class="tcount">${upList.length}</span></div>
+  </div>`;
+  let body;
+  if(tab === 'local'){
+    const months = groupTraceByMonth().filter(m => m.days.some(d => d.status === 'pending'));
+    const monthHtml = months.map(m => {
+      const days = m.days.filter(d => d.status === 'pending');
+      const mExp = !!s.traceMonths[m.month];
+      const monthChecked = days.length && days.every(d => s.selected[d.date]);
+      const mSize = days.reduce((a, d) => a + d.sizeMB, 0);
+      const daysHtml = mExp ? days.map(t => {
+        const sel = !!s.selected[t.date];
+        return `<div class="trace-local-row">
+          <span class="trace-chk ${sel ? 'on' : ''}" onclick="toggleTraceSelect('${t.date}');event.stopPropagation()">${sel ? '✓' : ''}</span>
+          <span class="tl-date">${t.date.slice(5)}</span>
+          <span class="tl-meta">${t.count.toLocaleString()} 点 · ${fmtMB(t.sizeMB)}</span>
+        </div>`;
+      }).join('') : '';
+      return `<div class="trace-month">
+        <button class="trace-month-head" onclick="toggleTraceMonth('${m.month}')">
+          <span class="trace-chk ${monthChecked ? 'on' : ''}" onclick="toggleMonthSelect('${m.month}');event.stopPropagation()">${monthChecked ? '✓' : ''}</span>
+          <span class="tm-chev">${mExp ? '▾' : '›'}</span>
+          <span class="tm-label">${m.month} 月</span>
+          <span class="tm-meta">${days.length} 天 · ${fmtMB(mSize)}</span>
+        </button>
+        ${mExp ? `<div class="trace-days">${daysHtml}</div>` : ''}
+      </div>`;
+    }).join('');
+    body = `<div class="storage-section">
+      <div class="storage-sec-head">本地轨迹 <span class="size">${fmtMB(localList.reduce((a, t) => a + t.sizeMB, 0))}</span>
+        <div class="trace-actions">
+          <span class="trace-sel-all" onclick="toggleSelectAllTrace()"><span class="trace-chk ${localAll ? 'on' : ''}">${localAll ? '✓' : ''}</span><span>全选</span></span>
+          <button class="trace-act up" ${localSel ? '' : 'disabled'} onclick="batchUploadTrace()">上传</button>
+          <button class="trace-act del" ${localSel ? '' : 'disabled'} onclick="confirmDeleteTrace()">清理</button>
         </div>
       </div>
-      <div class="storage-section">
-        <div class="storage-sec-head">离线轨迹点 <span class="size">${fmtMB(traceTotalMB())}</span></div>
-        <div class="trace-list">${traceRows}</div>
+      <div class="trace-list">${monthHtml || '<div class="trace-empty">暂无本地轨迹</div>'}</div>
+    </div>`;
+  } else {
+    const rows = upList.map(t => {
+      const pct = t.count ? Math.round(t.uploaded / t.count * 100) : 100;
+      const speed = t.status === 'uploading' ? speedText(t) : '';
+      return `<div class="trace-up-row">
+        <div class="tu-main">
+          <div class="tu-head">
+            <span class="tu-title">${t.date.slice(5)}<span class="tu-status ${statusClass(t)}" id="status-${dayId(t.date)}">${statusText(t)}</span></span>
+          </div>
+          <div class="tu-foot">
+            <div class="trace-prog" id="prog-${dayId(t.date)}">
+              <span class="trace-prog-fill" style="width:${pct}%"></span>
+            </div>
+            <span class="tu-actions">
+              ${t.status === 'uploading' ? `<button class="tu-icon" title="暂停" onclick="togglePause('${t.date}')">⏸</button>` : ''}
+              ${t.status === 'paused' ? `<button class="tu-icon" title="继续" onclick="togglePause('${t.date}')">▶</button>` : ''}
+              ${t.status !== 'completed' ? `<button class="tu-icon" title="取消" onclick="cancelUpload('${t.date}')">✕</button>` : ''}
+            </span>
+          </div>
+          <div class="tu-info">
+            <span id="size-${dayId(t.date)}">${sizeProgressText(t)}</span>
+            <span class="dot">·</span>
+            <span id="speed-${dayId(t.date)}">${t.status === 'uploading' ? speedText(t) : ''}</span>
+            <span class="dot">·</span>
+            <span id="eta-${dayId(t.date)}">${etaText(t)}</span>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+    body = `<div class="storage-section">
+      <div class="storage-sec-head">上传队列 <span class="size">${fmtMB(upList.reduce((a, t) => a + t.sizeMB, 0))}</span>
+        <div class="trace-actions">
+          <button class="trace-act up" onclick="pauseAllUploading()">暂停全部</button>
+          <button class="trace-act up" onclick="resumeAllUploading()">开始全部</button>
+        </div>
       </div>
-      <div class="storage-section">
-        <div class="storage-sec-head">日志文件 <span class="size">${fmtMB(logTotalMB())}</span> ${s.logs.length ? `<button class="clean-btn" onclick="cleanLogs()">清理</button>` : ''}</div>
-        <div class="storage-items">${s.logs.map(l => `<div class="storage-item"><span>${l.name}</span><span>${fmtMB(l.sizeMB)}</span></div>`).join('') || '<div class="storage-empty">暂无日志</div>'}</div>
-      </div>
-      <div class="storage-section">
-        <div class="storage-sec-head">缓存文件 <span class="size">${fmtMB(s.cacheMB)}</span> ${s.cacheMB ? `<button class="clean-btn" onclick="cleanCache()">清理</button>` : ''}</div>
-      </div>
+      <div class="trace-list">${rows || '<div class="trace-empty">上传队列为空</div>'}</div>
+    </div>`;
+  }
+  return `<section class="tablet-screen page">${head('离线轨迹点', 'settings')}
+    <div class="storage-body">
+      ${tabs}
+      ${body}
       <div class="system-toast" id="storageToast"></div>
     </div></section>`;
 }
-function toggleTraceDay(d){ STORAGE_STATE.traceExpanded = STORAGE_STATE.traceExpanded === d ? null : d; renderAll(); }
-function uploadTraceDay(d){ const t = STORAGE_STATE.tracePoints.find(x => x.date === d); if(t) t.status = 'uploaded'; renderAll(); toastStorage('原型不会上传真实点位数据'); }
-function cleanTraceDay(d){ const t = STORAGE_STATE.tracePoints.find(x => x.date === d); if(t){ STORAGE_STATE.used = Math.max(0, STORAGE_STATE.used - t.sizeMB * MB); STORAGE_STATE.tracePoints = STORAGE_STATE.tracePoints.filter(x => x.date !== d); } STORAGE_STATE.traceExpanded = null; renderAll(); toastStorage('已清理离线轨迹 ' + d + '（' + fmtMB(t ? t.sizeMB : 0) + '）'); }
+// ── 离线轨迹点 · Tab 切换与选择（日志清理确认框见上方 confirmCleanLogs）
+function toggleTraceTab(tab){ STORAGE_STATE.traceTab = tab; STORAGE_STATE.selected = {}; renderAll(); }
+function toggleTraceMonth(m){ STORAGE_STATE.traceMonths[m] = !STORAGE_STATE.traceMonths[m]; renderAll(); }
+function toggleTraceSelect(d){ if(STORAGE_STATE.selected[d]) delete STORAGE_STATE.selected[d]; else STORAGE_STATE.selected[d] = true; renderAll(); }
+function toggleMonthSelect(month){
+  const days = STORAGE_STATE.tracePoints.filter(t => t.date.slice(0,7) === month && t.status === 'pending');
+  const allSel = days.length && days.every(d => STORAGE_STATE.selected[d.date]);
+  days.forEach(d => { if(allSel) delete STORAGE_STATE.selected[d.date]; else STORAGE_STATE.selected[d.date] = true; });
+  renderAll();
+}
+function toggleSelectAllTrace(){
+  const list = STORAGE_STATE.traceTab === 'local'
+    ? STORAGE_STATE.tracePoints.filter(t => t.status === 'pending')
+    : STORAGE_STATE.tracePoints.filter(t => t.status !== 'pending');
+  const allSel = list.length && list.every(t => STORAGE_STATE.selected[t.date]);
+  if(allSel) list.forEach(t => delete STORAGE_STATE.selected[t.date]);
+  else list.forEach(t => STORAGE_STATE.selected[t.date] = true);
+  renderAll();
+}
+// 上传中：取消上传，回到“本地”（保留本地副本，仅退出上传队列）
+function cancelUpload(d){
+  const t = STORAGE_STATE.tracePoints.find(x => x.date === d);
+  if(!t || t.status === 'completed') return;
+  t.status = 'pending';
+  t.speedMBps = 0;
+  STORAGE_STATE.traceTab = 'local';   // 取消后回到本地列表（状态已置回 pending）
+  STORAGE_STATE.selected = {};
+  renderAll();
+  toastStorage('已取消上传：' + d);
+}
+// 进入离线轨迹点：清理已完成的本地副本（下次进入不再显示），并释放对应空间
+function enterStorageTrace(){
+  const s = STORAGE_STATE;
+  let freed = 0;
+  s.tracePoints = s.tracePoints.filter(t => {
+    if(t.status === 'completed'){ freed += t.sizeMB; return false; }
+    return true;
+  });
+  if(freed) s.used = Math.max(0, s.used - freed * MB);
+  go('storageTrace');
+}
+// 上传中：暂停 / 继续（断点续传，保留 uploaded 偏移）
+function togglePause(d){
+  const t = STORAGE_STATE.tracePoints.find(x => x.date === d);
+  if(!t) return;
+  if(t.status === 'uploading') t.status = 'paused';
+  else if(t.status === 'paused') t.status = 'uploading';
+  else if(t.status === 'waiting') t.status = 'paused';
+  startUploadEngine();
+  renderAll();
+}
+// ── 暂停全部 / 开始全部（上传中 Tab 顶部工具栏）
+function pauseAllUploading(){
+  let n = 0;
+  STORAGE_STATE.tracePoints.forEach(t => {
+    if(t.status === 'uploading' || t.status === 'waiting'){ t.status = 'paused'; n++; }
+  });
+  startUploadEngine();
+  renderAll();
+  if(n) toastStorage('已暂停 ' + n + ' 个上传任务');
+}
+function resumeAllUploading(){
+  let n = 0;
+  STORAGE_STATE.tracePoints.forEach(t => {
+    if(t.status === 'paused' || t.status === 'waiting'){ t.status = 'uploading'; n++; }
+  });
+  startUploadEngine();
+  renderAll();
+  if(n) toastStorage('已开始/续传 ' + n + ' 个上传任务');
+}
+function batchUploadTrace(){
+  const sel = STORAGE_STATE.selected;
+  const n = STORAGE_STATE.tracePoints.filter(t => sel[t.date] && t.status === 'pending').length;
+  if(!n) return;
+  STORAGE_STATE.tracePoints.forEach(t => { if(sel[t.date] && t.status === 'pending') t.status = 'waiting'; });
+  startUploadEngine();
+  STORAGE_STATE.selected = {};
+  renderAll();
+  toastStorage('已加入上传队列 ' + n + ' 天（支持断点续传）');
+}
+function confirmDeleteTrace(){
+  const sel = STORAGE_STATE.selected;
+  const keys = Object.keys(sel);
+  if(!keys.length) return;
+  const el = document.getElementById('tablet'); if(!el) return;
+  const m = document.createElement('div');
+  m.className = 'confirm-modal storage-confirm-modal';
+  m.innerHTML = `<div class="confirm-dialog">
+    <h3>清理离线轨迹点</h3>
+    <p>将删除选中的 ${keys.length} 天离线轨迹</p>
+    <div class="confirm-actions"><button onclick="closeConfirmDialog()">取消</button><button class="confirm-danger" onclick="batchDeleteTrace()">删除</button></div>
+  </div>`;
+  el.appendChild(m);
+}
+function batchDeleteTrace(){
+  const sel = STORAGE_STATE.selected;
+  const keys = Object.keys(sel);
+  let freed = 0;
+  STORAGE_STATE.tracePoints.forEach(t => { if(sel[t.date]) freed += t.sizeMB; });
+  STORAGE_STATE.used = Math.max(0, STORAGE_STATE.used - freed * MB);
+  STORAGE_STATE.tracePoints = STORAGE_STATE.tracePoints.filter(t => !sel[t.date]);
+  STORAGE_STATE.selected = {};
+  closeConfirmDialog();
+  renderAll();
+  toastStorage('已批量清理离线轨迹 ' + keys.length + ' 天（' + fmtMB(freed) + '）');
+}
 function cleanLogs(){ const total = logTotalMB(); STORAGE_STATE.used = Math.max(0, STORAGE_STATE.used - total * MB); STORAGE_STATE.logs = []; renderAll(); toastStorage('已清理日志文件 ' + fmtMB(total)); }
 function cleanCache(){ const c = STORAGE_STATE.cacheMB; STORAGE_STATE.used = Math.max(0, STORAGE_STATE.used - c * MB); STORAGE_STATE.cacheMB = 0; renderAll(); toastStorage('已清理缓存 ' + fmtMB(c)); }
 function toastStorage(msg){ const el = document.getElementById('storageToast'); if(!el) return; el.textContent = msg; el.classList.add('show'); clearTimeout(window._stTimer); window._stTimer = setTimeout(() => el.classList.remove('show'), 1600); }
 // ── 启动存储检查弹框
 function showStorageFullDialog(){
-  const el = document.querySelector('.tablet-screen'); if(!el) return;
+  const el = document.getElementById('tablet'); if(!el) return;
   const m = document.createElement('div');
-  m.className = 'settings-modal storage-full-modal';
-  m.innerHTML = `<div class="settings-dialog storage-full-dialog">
+  m.className = 'confirm-modal storage-full-modal';
+  m.innerHTML = `<div class="confirm-dialog">
     <h3>遥控器存储空间不足</h3>
-    <p>遥控器存储空间将满，请进入设置-存储进行清理不常用文件。</p>
-    <div class="actions"><button onclick="closeStorageDialog()">取消</button><button class="primary" onclick="go('storage');closeStorageDialog()">文件清理</button></div>
+    <p>遥控器存储空间将满，请进入设置-存储空间进行清理不常用文件。</p>
+    <div class="confirm-actions"><button onclick="closeStorageDialog()">取消</button><button class="confirm-primary" onclick="go('storage');closeStorageDialog()">文件清理</button></div>
   </div>`;
   el.appendChild(m);
 }
-function closeStorageDialog(){ document.querySelectorAll('.storage-full-modal').forEach(x => x.remove()); }
+function closeStorageDialog(){ document.querySelectorAll('.storage-full-modal,.storage-confirm-modal').forEach(x => x.remove()); }
 function checkStorageOnLaunch(){
+  startUploadEngine();   // 后台上传引擎随应用启动（即使未进入存储页也持续上传）
   const avail = STORAGE_STATE.total - STORAGE_STATE.used;
   if(avail < 5 * GB){ setTimeout(showStorageFullDialog, 400); }
 }
@@ -1512,24 +1821,50 @@ function checkStorageOnLaunch(){
 Object.assign(SCREENS, {
   storage: {
     num: '06.6',
-    title: '存储',
-    source: 'SettingsFragment · 存储管理（原型新增演示）',
+    title: '存储空间',
+    source: 'SettingsFragment · 存储空间（原型新增演示）',
     ui: storageUI,
     prd: {
-      desc: '统一管理遥控器存储空间，展示总容量、已用与可用空间，并按天管理离线轨迹点，以及清理日志与缓存文件。',
+      desc: '参考系统存储空间界面，展示总容量、已使用与可用空间，并提供缓存数据、离线轨迹点、日志三类数据的快捷清理入口。',
       value: '在存储将满时及时清理不常用文件，避免作业数据无法继续缓存。',
       fields: [
         ['总容量','存储量','系统存储','只读','32.0 GB'],
         ['已使用','存储量','系统存储','只读','实时'],
-        ['离线轨迹点','按天列表','本地轨迹缓存','可展开','每日约 200-340MB'],
-        ['日志文件','列表','各模块日志目录','可清理','合计约 120MB'],
-        ['缓存文件','存储量','应用缓存','可清理','171.20KB']
+        ['可用空间','存储量','系统存储','只读','< 5GB 时启动弹框'],
+        ['缓存数据','快捷清理','应用缓存','可清理','放心清理'],
+        ['离线轨迹点','子页管理','本地轨迹缓存','可展开/上传/清理','每日约 200-340MB'],
+        ['日志','快捷清理','各模块日志目录','可清理','清理需确认']
       ],
-      interactions: ['顶部进度条与已用/可用展示空间占用','点击某天离线轨迹展开，显示上传与清理操作','上传仅原型演示，不发送真实数据','清理轨迹/日志/缓存会从占用中扣除对应大小','存储空间不足时启动弹框提示进入本页'],
-      state: ['进入存储','读取空间占用','展开轨迹或清理','反馈结果'],
+      interactions: ['顶部大标题与分段进度条展示空间占用','缓存数据行点击“放心清理”直接清空','点击“离线轨迹点”进入轨迹管理子页','日志行点击“清理”弹框确认后清空','存储空间不足时启动弹框提示进入本页'],
+      state: ['进入存储空间','查看总览','进入子页清理或上传','反馈结果'],
       src: '原型新增演示；真实实现参考 MqttDatabase 与各模块日志目录清理。',
       edge: ['原型数据为模拟值，不读取真实磁盘','清理不删除真实文件','上传不发送真实数据'],
-      ac: ['总览进度条与可用空间清晰','离线轨迹按天展开并可上传/清理','日志与缓存提供清理入口','启动空间不足弹框可进入本页']
+      ac: ['总览进度条与可用空间清晰','缓存数据可直接放心清理','离线轨迹按天展开并可上传/清理','日志行点击“清理”弹框确认后清空','启动空间不足弹框可进入本页']
+    }
+  },
+  storageTrace: {
+    num: '06.6.1',
+    title: '离线轨迹点',
+    source: 'SettingsFragment · 离线轨迹点管理（原型新增演示）',
+    ui: storageTraceUI,
+    prd: {
+      desc: '离线轨迹点管理子页，分为「本地」与「上传中」两个 Tab。本地轨迹无状态、仅显示点数与大小，通过顶部工具栏批量上传/清理；上传中轨迹每行三段（上：日期+点数·大小 … 速度+状态；中：进度条+位置标记；下：操作），状态分等待中/上传中/已暂停/已完成，可暂停/继续/取消（取消即回到本地）。已完成的本地副本下次进入自动移除并释放空间。',
+      value: '恢复网络后补传离线轨迹，或手动清理已不需要的本地轨迹以释放空间。',
+      fields: [
+        ['Tab 切换','分段控件','本地 / 上传中','切换','切换时清空多选'],
+        ['本地轨迹','列表','未上传轨迹','可上传/清理','仅显示点数与大小'],
+        ['上传队列','列表','上传中轨迹','实时','状态+进度+速度'],
+        ['状态','文本','等待中/上传中/已暂停/已完成','实时','右上角显示'],
+        ['速度','文本','MB/s','实时','仅上传中显示'],
+        ['进度条','进度','上传偏移','实时','带位置标记 O'],
+        ['全选/上传/清理','顶部工具栏','本地批量操作','操作','选中后上传/清理（清理需确认）'],
+        ['暂停/继续/取消','行内操作','上传中单天','操作','暂停保留偏移、取消回到本地']
+      ],
+      interactions: ['点击 Tab 在本地/上传中切换','本地勾选后点顶部“上传”加入队列、“清理”弹框确认后删除','上传中每行上段显示日期+点数·大小与速度+状态，中段进度条带位置标记','单天可“暂停/继续”或“取消”（取消回到本地）','上传中勾选后点顶部“删除”可批量删除','已完成项下次进入自动移除并释放空间','点击“全选”切换当前 Tab 所有天的选中'],
+      state: ['进入离线轨迹点','切换 Tab','本地上传或清理 / 上传中暂停或删除','反馈结果'],
+      src: '原型新增演示；真实实现遍历 MqttDatabase 未上传轨迹并按天分片上传，上传中维护队列与并发。',
+      edge: ['原型数据为模拟值，不上传真实数据','断点续传通过 uploaded 偏移模拟','等待中按并发上限排队','删除只从模拟占用中扣除'],
+      ac: ['本地与上传中明确分离，状态不再混排','本地仅显示大小与操作','上传中每行三段：日期+点数·大小/速度+状态、进度条带标记、操作按钮','上传中显示进度与速度、支持暂停/继续断点续传','取消即回到本地、删除前弹框二次确认','已完成项下次进入自动不显示']
     }
   }
 });
