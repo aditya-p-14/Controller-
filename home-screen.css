@@ -1,0 +1,36 @@
+/* Scoped to Home: other prototype screens retain their existing styles. */
+#screen .home-launcher {
+  --home-surface: #14201de8;
+  --home-border: #ffffff3b;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 98px;
+  background: linear-gradient(90deg, #101b18a8, #101b1826 65%), url('./assets/home-background.jpg') center / cover no-repeat;
+  color: #fff;
+  font-family: inherit;
+}
+.home-launcher *, .home-launcher *::before, .home-launcher *::after { box-sizing: border-box; }
+.home-launcher button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 48px; padding: 10px 15px; border: 1px solid var(--home-border); border-radius: 14px; background: var(--home-surface); color: #fff; font: inherit; font-size: 14px; cursor: pointer; }
+.home-launcher button:hover { background: #24362bf2; border-color: #ffffff80; }
+.home-launcher button:focus-visible { outline: 3px solid #a4f2b7; outline-offset: 3px; }
+.home-launcher svg { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.home-launcher-photo { position: relative; min-height: 0; }
+.home-launcher-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding: 20px; }
+.home-launcher-header-group { display: flex; align-items: center; gap: 10px; }
+.home-launcher-status i { width: 7px; height: 7px; flex: none; border-radius: 50%; background: #a5afa7; }
+.home-launcher-status small { padding-left: 13px; margin-left: 6px; border-left: 1px solid #ffffff26; color: #bdcec1; font-size: 11px; }
+.home-launcher .home-launcher-bell { position: relative; width: 48px; padding: 0; border-radius: 50%; }
+.home-launcher-alert { position: absolute; top: 9px; right: 10px; width: 7px; height: 7px; border: 1px solid #fff; border-radius: 50%; background: #bb6b27; }
+.home-launcher-footer { display: flex; align-items: center; gap: 14px; padding: 16px 20px; background: #101b17d9; }
+.home-launcher-planning { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); flex: 0 0 338px; gap: 10px; }
+.home-launcher-planning button { height: 66px; flex-direction: column; gap: 4px; padding: 8px; }
+.home-launcher-utilities { display: flex; gap: 8px; margin-left: auto; }
+.home-launcher-utilities button { gap: 7px; padding: 10px; font-size: 13px; }
+.home-launcher-utilities svg { width: 20px; height: 20px; }
+.home-launcher .home-launcher-start { justify-content: space-between; min-width: 170px; min-height: 66px; padding: 12px 22px; border-color: #68a67b; background: #267a41; font-size: 24px; font-weight: 600; }
+.home-launcher .home-launcher-start:hover { background: #1e6535; }
+.home-launcher-notifications { position: absolute; top: 80px; right: 20px; z-index: 10; width: 345px; padding: 18px; border: 1px solid #cad8cd; border-radius: 14px; background: #fff; color: #263c30; box-shadow: 0 10px 28px #19302030; }
+.home-launcher-notifications header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.home-launcher-notifications h2 { margin: 0; font-size: 17px; }
+.home-launcher-notifications p { font-size: 14px; line-height: 1.5; }
+.home-launcher-notifications button { min-height: 40px; border-color: #cad8cd; background: #f0f5f1; color: #263c30; }
+.home-launcher-notifications button:hover { background: #e1ebe3; }
