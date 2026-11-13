@@ -1,12 +1,34 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en-US">
 <head>
 <meta charset="UTF-8">
+<meta name="prototype-version" content="2026.10.23-bilingual-geometry-4">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>惠达 GCS · 实机界面还原 + PRD</title>
-<link rel="stylesheet" href="styles.css">
+<title>Talos UAS · Interactive Prototype</title>
+<link rel="stylesheet" href="styles.css?v=bilingual-final">
+<link rel="stylesheet" href="localization.css?v=bilingual-geometry-4">
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true">
+<defs>
+<filter id="home-chrome-cutout" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1.02 0 0 0 -0.02"/></filter>
+<filter id="theme-image-recolor" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+<feColorMatrix in="SourceGraphic" type="matrix" values="0.7394957983 0.2605042017 0 0 0 -0.5546218487 1.5546218487 0 0 0 0.2605042017 -0.2605042017 1 0 0 0 0 0 1 0" result="recolored"/>
+<feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -8 8 0 0 0" result="green-chroma"/>
+<feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -8 0 8 0 0" result="blue-chroma"/>
+<feComposite in="green-chroma" in2="blue-chroma" operator="in" result="theme-mask"/>
+<feComposite in="recolored" in2="theme-mask" operator="in" result="theme-pixels"/>
+<feComposite in="SourceGraphic" in2="theme-mask" operator="out" result="other-pixels"/>
+<feComposite in="theme-pixels" in2="other-pixels" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>
+</filter>
+<clipPath id="theme-flight-base" clipPathUnits="userSpaceOnUse"><rect x="815" y="199" width="127" height="148"/></clipPath>
+<clipPath id="theme-flight-side" clipPathUnits="userSpaceOnUse"><rect x="15" y="72" width="275" height="456" rx="6"/><rect x="815" y="199" width="127" height="148"/></clipPath>
+<clipPath id="theme-flight-formula" clipPathUnits="userSpaceOnUse"><rect x="15" y="75" width="278" height="456" rx="12"/><rect x="815" y="199" width="127" height="148"/></clipPath>
+<clipPath id="theme-flight-plan" clipPathUnits="userSpaceOnUse"><rect x="15" y="75" width="278" height="510" rx="12"/></clipPath>
+<clipPath id="theme-flight-manual-plus" clipPathUnits="userSpaceOnUse"><rect x="15" y="75" width="278" height="456" rx="12"/></clipPath>
+<clipPath id="theme-flight-layer" clipPathUnits="userSpaceOnUse"><rect x="687" y="128" width="267" height="196" rx="5"/></clipPath>
+</defs>
+</svg>
 <svg style="display:none" aria-hidden="true">
  <symbol id="i-drone" viewBox="0 0 24 24"><path d="M8 8h8v8H8zM3 5l5 3M21 5l-5 3M3 19l5-3M21 19l-5-3M2 2h3v3H2zM19 2h3v3h-3zM2 19h3v3H2zM19 19h3v3h-3z"/></symbol>
  <symbol id="i-back" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
@@ -16,9 +38,13 @@
  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M5 9a11 11 0 0 1 14 0M8 12a7 7 0 0 1 8 0M11 15a2 2 0 0 1 2 0"/></symbol>
  <symbol id="i-battery" viewBox="0 0 24 24"><path d="M3 7h16v10H3zM21 10v4"/></symbol>
 </svg>
-<header class="topbar"><div class="brand"><span class="brand-mark"><svg class="svg-icon"><use href="#i-drone"/></svg></span>惠达 GCS · 实机界面还原</div><div class="top-note">点左侧切屏 · 点原型组件定位右侧 PRD · AC 可勾选</div><div class="top-spacer"></div><select class="screen-select" id="screenSelect" aria-label="选择屏幕"></select></header>
-<button class="fab left" onclick="toggleNav()" aria-label="屏幕导航"><svg class="svg-icon"><use href="#i-menu"/></svg></button><button class="fab right" onclick="togglePrd()" aria-label="PRD"><svg class="svg-icon"><use href="#i-doc"/></svg></button><div class="overlay" id="overlay" onclick="closeDrawers()"></div>
-<div class="app"><aside class="nav-col" id="switcher"></aside><section class="proto-col"><div class="tablet-shell" id="tabletShell"><div class="tablet" id="tablet"><div class="tablet-screen" id="screen"></div></div></div></section><main class="prd-col"><button class="prd-close" onclick="closeDrawers()" aria-label="关闭">×</button><div id="prd"></div></main></div>
-<script src="app.js"></script>
+<header class="topbar"><div class="brand"><span class="brand-mark"><svg class="svg-icon"><use href="#i-drone"/></svg></span>Talos UAS · Interactive Prototype</div><div class="top-note">Select a screen to explore the prototype.</div><div class="top-spacer"></div><button type="button" class="language-toggle" id="languageToggle" aria-label="Switch language"><span data-lang="zh">中文</span><span class="language-divider">/</span><span data-lang="en">English</span></button><select class="screen-select" id="screenSelect" aria-label="Select a screen"></select></header>
+<button class="fab left" onclick="toggleNav()" aria-label="Screen navigation"><svg class="svg-icon"><use href="#i-menu"/></svg></button><button class="fab right" onclick="togglePrd()" aria-label="Feature overview"><svg class="svg-icon"><use href="#i-doc"/></svg></button><div class="overlay" id="overlay" onclick="closeDrawers()"></div>
+<div class="app"><aside class="nav-col" id="switcher"></aside><section class="proto-col"><div class="tablet-shell" id="tabletShell"><div class="tablet" id="tablet"><div class="tablet-screen" id="screen"></div></div></div></section><main class="prd-col"><button class="prd-close" onclick="closeDrawers()" aria-label="Close">×</button><div id="prd"></div></main></div>
+<div class="prototype-watermark" aria-hidden="true" data-watermark="惠达科技"></div>
+<script src="locale-state.js?v=1"></script>
+<script src="screenshot-labels.js?v=1"></script>
+<script src="english-ui.js?v=bilingual-geometry-4"></script>
+<script src="app.js?v=bilingual-geometry-4"></script>
 </body>
 </html>
