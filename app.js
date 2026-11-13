@@ -138,6 +138,7 @@ window.isCustomerScreen = id => !INTERNAL_SCREEN_IDS.has(id);
   source.src = `app.${language}.js?v=bilingual-geometry-4`;
   source.onload = () => {
     window.installHomeScreen();
+    window.installMissionsLogs();
     if (saved) {
       for (const [name, value] of Object.entries(saved.state || {})) {
         if (LOCALE_STATE_NAMES.includes(name)) {
@@ -154,6 +155,7 @@ window.isCustomerScreen = id => !INTERNAL_SCREEN_IDS.has(id);
     const originalRender = window.renderAll;
     window.renderAll = function (...args) {
       const result = originalRender.apply(this, args);
+      window.refineMissionsLogs?.();
       addScreenshotLabels();
       stabilizeButtonGeometry();
       scheduleOverflow();

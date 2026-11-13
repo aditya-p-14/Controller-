@@ -1,0 +1,130 @@
+/* Shared geometry applies only while viewing Missions or Logs. */
+#screen.missions-logs-context{--theme:#278044;color:#202b36;background:#f7f9fb}
+#screen.missions-logs-context :is(.page-head,.sub-head){height:76px;background:#fff;border-bottom:1px solid #dfe5eb;justify-content:flex-start;padding:0 76px}
+#screen.missions-logs-context :is(.page-title,.sub-title){font-size:23px;font-weight:600;color:#202b36}
+#screen.missions-logs-context :is(.page-head,.sub-head) :is(.back,.sub-back){top:20px;left:24px;width:36px;height:36px}
+#screen.missions-logs-context :is(.ops-primary,.ops-secondary){min-height:38px;padding:9px 14px;font-size:13px;font-weight:500;border-radius:5px;line-height:1.3;white-space:normal}
+#screen.missions-logs-context .ops-primary{background:#278044;color:#fff;border:1px solid #278044}
+#screen.missions-logs-context .ops-secondary{background:#fff;color:#3f5266;border:1px solid #cfd8e2}
+#screen.missions-logs-context .ops-label{display:block;font-size:10px;letter-spacing:1px;color:#7b8996;font-weight:600}
+/* Scoped Mission Resources and Log Management layout. */
+
+#screen.missions-logs-context .mission-layout{display:grid;grid-template-columns:175px minmax(0,1fr);height:524px}
+#screen.missions-logs-context .mission-layout .work-side{position:static;width:auto;padding:24px 14px;background:#f2f5f8;border-right:1px solid #dfe5eb}
+#screen.missions-logs-context .work-side .ops-label{padding:0 12px 16px}
+#screen.missions-logs-context .mission-layout .work-side button{width:100%;height:auto;min-height:42px;padding:10px 12px;margin-bottom:6px;font-size:14px;text-align:left;border-radius:4px;line-height:1.4}
+#screen.missions-logs-context .mission-layout .work-side .on{color:#276c3d;background:#e5f0e7;font-weight:600}
+#screen.missions-logs-context .mission-layout .work-main{margin:0;padding:22px 24px;position:relative;height:100%;display:flex;flex-direction:column;gap:14px;min-height:0;background:#fff}
+#screen.missions-logs-context .mission-toolbar{display:flex;justify-content:space-between;align-items:center;gap:16px}
+#screen.missions-logs-context .mission-toolbar .segmented{width:270px;height:38px;border:1px solid #d5dde6;border-radius:5px}
+#screen.missions-logs-context .mission-toolbar .segmented button{font-size:13px}
+#screen.missions-logs-context .segmented button.on{background:#ecf5ee;color:#276c3d;font-weight:600}
+#screen.missions-logs-context .mission-filters{display:flex;gap:10px;align-items:center}
+#screen.missions-logs-context .mission-search{flex:1;min-width:0}
+#screen.missions-logs-context .mission-search input{width:100%;height:38px;padding:0 12px;font-size:13px;border:1px solid #d5dde6;border-radius:5px;background:#fafbfd}
+#screen.missions-logs-context .mission-sync{align-self:flex-start;font-size:11px;color:#6d7d8c;display:flex;align-items:center}
+#screen.missions-logs-context .mission-layout .work-card-list{position:static;overflow-y:auto;flex:1;min-height:0;width:100%;padding:0}
+#screen.missions-logs-context .work-card{height:auto;min-height:100px;padding:14px 0;border-radius:0;border-bottom:1px solid #e3e8ee;gap:15px;margin:0}
+#screen.missions-logs-context .work-card-map{width:76px;height:76px;flex-basis:76px;border-radius:4px;overflow:hidden}
+#screen.missions-logs-context .work-card-info{gap:6px}
+#screen.missions-logs-context .work-card-info strong{font-size:15px}
+#screen.missions-logs-context .work-card-info :is(small,p){font-size:11px;line-height:1.4}
+#screen.missions-logs-context .work-card-meta{gap:6px}
+#screen.missions-logs-context .work-card-meta strong{font-size:14px}
+#screen.missions-logs-context .work-card-meta span{font-size:11px}
+#screen.missions-logs-context .mission-layout .work-cloud-empty{position:static;flex:1;min-height:120px;font-size:14px;color:#85919c}
+#screen.missions-logs-context .mission-selection{display:flex;justify-content:space-between;background:#eef3f8;padding:12px;font-size:12px}
+#screen.missions-logs-context .work-card[hidden]{display:none!important}
+#screen.missions-logs-context .logs-screen>.page-head{height:118px;display:block;padding:0 24px}
+#screen.missions-logs-context .logs-page-label{position:absolute;left:76px;top:23px;font-size:23px;font-weight:600}
+#screen.missions-logs-context .logs-tabs{position:absolute;left:24px;right:24px;bottom:0;top:auto;width:auto;height:42px;display:flex;border:0;border-radius:0;gap:5px}
+#screen.missions-logs-context .logs-tabs button{width:auto;flex:1;font-size:13px;border:0;border-bottom:2px solid transparent;color:#748291}
+#screen.missions-logs-context .logs-tabs button.on{background:none;color:#276c3d;border-bottom-color:#278044;font-weight:600}
+#screen.missions-logs-context .upload-manage{top:20px;right:24px;font-size:12px;width:auto;height:36px;padding:0 14px;border-color:#cfd8e2;color:#476581}
+#screen.missions-logs-context .logs-body{top:118px;height:482px;background:#fff}
+#screen.missions-logs-context .logs-summary{font-size:12px;padding-top:18px;color:#73818e}
+#screen.missions-logs-context .log-main{top:55px;bottom:78px}
+#screen.missions-logs-context .log-group{border:1px solid #e0e6ec;border-radius:5px;margin-bottom:8px;background:#fff}
+#screen.missions-logs-context .log-group-head{min-height:76px;height:auto;padding:12px}
+#screen.missions-logs-context .log-group-name{font-size:14px;overflow-wrap:anywhere}
+#screen.missions-logs-context .log-group-meta{font-size:11px;gap:14px;margin-top:8px;color:#7f8b96}
+#screen.missions-logs-context .log-child{font-size:11px;gap:16px;line-height:1.4}
+#screen.missions-logs-context .log-footer{height:48px;bottom:15px;border:1px solid #d8e0e8;border-radius:5px;font-size:12px}
+#screen.missions-logs-context .log-footer button{font-size:13px}
+#screen.missions-logs-context .log-warning{font-size:15px;color:#7c8996;gap:14px}
+#screen.missions-logs-context .log-warning i{background:#f4eee2;color:#9c7e45;width:36px;height:36px;font-size:24px;line-height:36px}
+#screen.missions-logs-context .mission-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding-bottom:30px;color:#6f8191}
+#screen.missions-logs-context .mission-empty strong{font-size:15px;font-weight:500}
+#screen.missions-logs-context .mission-empty p{font-size:12px;color:#94a0aa}
+#screen.missions-logs-context .logs-summary .refresh{font-size:24px;color:#718393}
+#screen.missions-logs-context .log-chevron{width:11px;height:11px;border-width:2px;border-color:#8193a4}
+#screen.missions-logs-context .log-check{width:18px;height:18px;flex-basis:18px;border-width:1px}
+#screen.missions-logs-context .log-footer button.action{background:#278044;font-size:13px}
+#screen.missions-logs-context .log-footer button.action.disabled{background:#edf1f5;color:#99a6b2}
+#screen.missions-logs-context .log-group-name{margin-bottom:6px}
+#screen.missions-logs-context .device-card .device-icon{filter:grayscale(1) contrast(1.8);opacity:.8}
+#screen.missions-logs-context .device-body{scrollbar-width:thin}
+#screen.missions-logs-context .device-body::-webkit-scrollbar{display:block;width:5px}
+#screen.missions-logs-context .v2-screen{background:#f5f7f8;color:#26343b;display:flex;flex-direction:column;overflow:hidden}
+#screen.missions-logs-context .v2-header{height:76px;min-height:76px;padding:0 24px;display:flex;align-items:center;gap:18px;background:#fff;border-bottom:1px solid #e0e5e7}
+#screen.missions-logs-context .v2-header h1{font-size:23px;font-weight:500;line-height:1.2;margin:0}
+#screen.missions-logs-context .v2-back{width:36px;height:40px;display:grid;place-items:center;color:#68777e;flex:none}
+#screen.missions-logs-context .v2-header-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
+#screen.missions-logs-context .v2-subtle{font-size:11px;color:#8b979d}
+#screen.missions-logs-context .v2-primary,#screen.missions-logs-context .v2-secondary,#screen.missions-logs-context .v2-text{min-height:38px;padding:9px 15px;border-radius:5px;font-size:13px;line-height:1.35;font-weight:500;white-space:normal}
+#screen.missions-logs-context .v2-primary{background:#278044;color:#fff;border:1px solid #278044}
+#screen.missions-logs-context .v2-primary:hover{background:#206b38}
+#screen.missions-logs-context .v2-secondary{border:1px solid #d2dcda;color:#4a6257;background:#fff}
+#screen.missions-logs-context .v2-text{color:#32764a;background:none;border:0;padding-left:8px;padding-right:8px}
+#screen.missions-logs-context .v2-screen button:disabled{opacity:1;color:#a2ada7;background:#edf1ee;border-color:#e2e8e3;cursor:default}
+#screen.missions-logs-context .v2-glyph{width:40px;height:40px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+#screen.missions-logs-context .v2-pill{font-size:10px;line-height:1.3;padding:5px 8px;border-radius:4px;background:#edf0f1;color:#7b898e;white-space:nowrap;display:inline-flex;width:max-content;align-self:flex-start}
+#screen.missions-logs-context .v2-pill.good{color:#2d7b49;background:#eaf4ed}
+#screen.missions-logs-context .v2-empty{display:flex;flex:1;min-height:180px;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px;gap:10px}
+#screen.missions-logs-context .v2-empty>.v2-glyph{width:44px;height:44px;color:#a1b0a8;margin-bottom:5px}
+#screen.missions-logs-context .v2-empty h2{font-size:17px;font-weight:500;margin:0;color:#53675d}
+#screen.missions-logs-context .v2-empty p{font-size:12px;line-height:1.6;color:#8b9890;max-width:380px;margin:0}
+#screen.missions-logs-context .v2-empty>button{margin-top:8px}
+#screen.missions-logs-context .v2-tabs{display:flex;align-items:stretch;gap:26px;background:#fff;border-bottom:1px solid #e0e5e7;padding:0 28px;height:48px;min-height:48px}
+#screen.missions-logs-context .v2-tabs>button{position:relative;font-size:13px;color:#85928c;border-bottom:2px solid transparent;padding:0 6px;min-width:80px}
+#screen.missions-logs-context .v2-tabs>button.active{color:#28713f;border-bottom-color:#278044;font-weight:500}
+#screen.missions-logs-context .v2-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#aeb7b2;flex:none}
+#screen.missions-logs-context .v2-dot.online{background:#3e9560}
+#screen.missions-logs-context .v2-action-footer{display:flex;align-items:center;gap:14px;height:64px;min-height:64px;background:#fff;border-top:1px solid #e0e6e2;padding:0 24px;font-size:12px;color:#7c8c82;margin-top:auto}
+#screen.missions-logs-context .v2-action-footer>div:empty{flex:1}
+#screen.missions-logs-context .v2-action-footer>button{flex:none}
+#screen.missions-logs-context .v2-link-body{position:absolute;inset:0;display:flex;flex-direction:column;background:#fff}
+#screen.missions-logs-context .v2-link-toolbar{display:flex;align-items:center;padding:0 24px;height:57px;min-height:57px;border-bottom:1px solid #e4e9e6}
+#screen.missions-logs-context .v2-link-toolbar>.v2-tabs{padding:0;border:0;height:57px;gap:20px}
+#screen.missions-logs-context .v2-toggle-label{margin-left:auto;display:flex;gap:12px;align-items:center;font-size:12px;color:#7b8b81}
+#screen.missions-logs-context .v2-status-strip{display:flex;align-items:center;gap:8px;padding:12px 24px;background:#f7f9f7;font-size:11px;color:#698372}
+#screen.missions-logs-context .v2-status-strip>span:last-child{margin-left:auto;color:#91a095}
+#screen.missions-logs-context .v2-file-table{flex:1;min-height:0;display:flex;flex-direction:column;margin:0 24px}
+#screen.missions-logs-context .v2-file-head,#screen.missions-logs-context .v2-file-row{display:grid;grid-template-columns:65px minmax(0,1fr) 100px 85px;align-items:center;gap:12px}
+#screen.missions-logs-context .v2-file-head{height:40px;min-height:40px;border-bottom:1px solid #dfe6e1;font-size:10px;color:#93a096}
+#screen.missions-logs-context .v2-file-scroll{overflow-y:auto;min-height:0;flex:1}
+#screen.missions-logs-context .v2-file-row{min-height:44px;border-bottom:1px solid #edf0ed;font-size:12px;color:#56695e;cursor:pointer}
+#screen.missions-logs-context .v2-file-row>span:first-of-type{overflow-wrap:anywhere}
+#screen.missions-logs-context .v2-file-row>small{font-size:10px;color:#98a49b}
+#screen.missions-logs-context .v2-file-row input,#screen.missions-logs-context .v2-zone-row>input{accent-color:#278044;width:16px;height:16px;margin-left:6px;cursor:pointer}
+#screen.missions-logs-context .v2-folder{display:flex;align-items:center;gap:14px;width:100%;padding:10px 6px;font-size:12px;text-align:left;border-bottom:1px solid #edf0ed;color:#647e6d}
+#screen.missions-logs-context .v2-folder .v2-glyph{width:25px;height:25px}
+#screen.missions-logs-context .v2-folder>small{margin-left:auto;color:#98a49b;font-size:10px}
+#screen.missions-logs-context .v2-manager-summary{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;font-size:12px;color:#8a988e}
+#screen.missions-logs-context .v2-manager-list{display:flex;flex-direction:column;flex:1;overflow-y:auto;min-height:0;padding:0 28px 22px}
+#screen.missions-logs-context .v2-upload-row{background:#fff;display:flex;align-items:center;gap:18px;border:1px solid #e0e7e1;border-radius:5px;padding:18px;margin-bottom:10px}
+#screen.missions-logs-context .v2-upload-row>.v2-glyph{width:30px;height:30px;color:#98ab9d}
+#screen.missions-logs-context .v2-upload-row>div{flex:1;min-width:0}
+#screen.missions-logs-context .v2-upload-row strong{display:block;font-size:13px;font-weight:500;overflow-wrap:anywhere}
+#screen.missions-logs-context .v2-upload-row p{font-size:11px;color:#8e9b92;margin:7px 0 9px}
+#screen.missions-logs-context .v2-upload-row>.v2-pill{align-self:center}
+#screen.missions-logs-context .v2-progress{height:3px;background:#e9eeea;border-radius:3px;overflow:hidden}
+#screen.missions-logs-context .v2-progress i{display:block;height:100%;background:#479666;transition:width .3s}
+#screen.missions-logs-context .v2-modal-mask{position:absolute;inset:0;z-index:40;background:#14251f66;display:grid;place-items:center}
+#screen.missions-logs-context .v2-dialog{background:#fff;border-radius:7px;width:440px;padding:26px;box-shadow:0 18px 50px #13221b33;color:#34483b}
+#screen.missions-logs-context .v2-dialog h2{font-size:21px;font-weight:500}
+#screen.missions-logs-context .v2-dialog p{font-size:13px;color:#829087;margin:13px 0 22px;line-height:1.6}
+#screen.missions-logs-context .v2-dialog label{display:block;font-size:12px}
+#screen.missions-logs-context .v2-dialog label span{float:right;font-size:10px;color:#97a49b}
+#screen.missions-logs-context .v2-dialog input{display:block;width:100%;height:42px;margin-top:9px;padding:0 12px;border:1px solid #d2ddd5;border-radius:4px;font-size:13px}
+#screen.missions-logs-context .v2-dialog footer{display:flex;justify-content:flex-end;gap:10px;margin-top:24px}
