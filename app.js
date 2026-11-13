@@ -137,6 +137,7 @@ window.isCustomerScreen = id => !INTERNAL_SCREEN_IDS.has(id);
   const source = document.createElement('script');
   source.src = `app.${language}.js?v=bilingual-geometry-4`;
   source.onload = () => {
+    window.installHomeScreen();
     if (saved) {
       for (const [name, value] of Object.entries(saved.state || {})) {
         if (LOCALE_STATE_NAMES.includes(name)) {
